@@ -1,0 +1,21 @@
+# instructions
+# nodejs 
+FROM node:latest
+
+# folder
+WORKDIR /app
+
+# package.json package-lock.json
+COPY package*.json ./
+
+
+#Install packages
+RUN npm install
+
+# copy project
+# source >> local machine(current folder) >> docker container(/app)
+COPY . .
+
+# run app
+CMD ["npm", "run", "start:dev"]
+

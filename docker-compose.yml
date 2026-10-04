@@ -1,0 +1,41 @@
+services:
+  nest-app:
+    container_name: dev_container 
+    image: nest_img:dev
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    # develop:
+    #  watch:
+    #    - action: sync
+    #      path: .
+    #      target: /app
+    #      ignore:
+    #        - node_modules
+    #    - action: rebuild
+    #      path: package.json 
+
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports: 
+      - '5000:3000'
+    env_file:
+      - .env
+    depends_on:
+      - mongodb
+  mongodb:
+    container_name: dev_mongodb
+    image: mongo:latest
+    ports:
+      - '27018:27017'
+    volumes:
+      - mongo_data:/data/db
+volumes:
+    mongo_data:
+
+
+
+
+
+
